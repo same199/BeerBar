@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     var totalPrice: Double = 0
     let firstBeer = Beer(beerName: "Heineken", beerPrice: 2.13)
-    let secondBeer = Beer(beerName: "Alivariya", beerPrice: 2.50)
+    let secondBeer = Beer(beerName: "Grimbergen", beerPrice: 3.16)
     let thirdBeer = Beer(beerName: "Obolon", beerPrice: 1.99)
     let manager = Managers(managerName: "Artsiom")
     
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         return firstBeerName}()
     private let firstBeerCountLabel: UILabel = {
         let firstBeerCount = UILabel()
-        firstBeerCount.textAlignment = .center
+        firstBeerCount.textAlignment = .right
         firstBeerCount.font = UIFont.systemFont(ofSize: 24)
         firstBeerCount.textColor = .black
         return firstBeerCount}()
@@ -78,9 +78,9 @@ class ViewController: UIViewController {
         return secondBeerName}()
     private let secondBeerCountLabel: UILabel = {
         let secondBeerCount = UILabel()
-        secondBeerCount.textAlignment = .center
+        secondBeerCount.textAlignment = .right
         secondBeerCount.font = UIFont.systemFont(ofSize: 24)
-        secondBeerCount.textColor = .systemMint
+        secondBeerCount.textColor = .black
         return secondBeerCount}()
     private let secondBeerMinusCountButton: UIButton = {
         let secondBeerMinusCount = UIButton()
@@ -102,9 +102,9 @@ class ViewController: UIViewController {
         return thirdBeerName}()
     private let thirdBeerCountLabel: UILabel = {
         let thirdBeerCount = UILabel()
-        thirdBeerCount.textAlignment = .center
+        thirdBeerCount.textAlignment = .right
         thirdBeerCount.font = UIFont.systemFont(ofSize: 24)
-        thirdBeerCount.textColor = .systemMint
+        thirdBeerCount.textColor = .black
         return thirdBeerCount}()
     private let thirdBeerMinusCountButton: UIButton = {
         let thirdBeerMinusCount = UIButton()
@@ -212,6 +212,50 @@ class ViewController: UIViewController {
                                       y: Offset.allOffsets.rawValue,
                                       width: 50,
                                       height: 50)
+        
+        viewlWithBeerInformation.addSubview(secondBeerLabel)
+        secondBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
+                                       y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 150,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(secondBeerCountLabel)
+        secondBeerCountLabel.frame = CGRect(x: secondBeerLabel.frame.origin.x + secondBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
+                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(secondBeerMinusCountButton)
+        secondBeerMinusCountButton.frame = CGRect(x: secondBeerCountLabel.frame.origin.x + secondBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
+                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(secondBeerPlusCountButton)
+        secondBeerPlusCountButton.frame = CGRect(x: secondBeerMinusCountButton.frame.origin.x + secondBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
+                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        
+        viewlWithBeerInformation.addSubview(thirdBeerLabel)
+        thirdBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
+                                       y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 150,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(thirdBeerCountLabel)
+        thirdBeerCountLabel.frame = CGRect(x: thirdBeerLabel.frame.origin.x + thirdBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
+                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(thirdBeerMinusCountButton)
+        thirdBeerMinusCountButton.frame = CGRect(x: thirdBeerCountLabel.frame.origin.x + thirdBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
+                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        viewlWithBeerInformation.addSubview(thirdBeerPlusCountButton)
+        thirdBeerPlusCountButton.frame = CGRect(x: thirdBeerMinusCountButton.frame.origin.x + thirdBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
+                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
+        
+        
         
         view.addSubview(recieptView)
         welcomeMessage.text = ""
