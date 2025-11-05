@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         let firstBeerCount = UILabel()
         firstBeerCount.textAlignment = .center
         firstBeerCount.font = UIFont.systemFont(ofSize: 24)
-        firstBeerCount.textColor = .systemMint
+        firstBeerCount.textColor = .black
         return firstBeerCount}()
     private let firstBeerMinusCountButton: UIButton = {
         let firstBeerMinusCount = UIButton()
@@ -173,10 +173,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurateUI()
+        configureUI()
     }
     
-    func configurateUI(){
+    func configureUI(){
         view.backgroundColor = UIColor.white
         view.addSubview(welcomeMessage)
         welcomeMessage.frame = CGRect(x: (view.frame.width - WelcomeMessageSize.labelWidth.rawValue) / 2,
@@ -190,7 +190,7 @@ class ViewController: UIViewController {
                                                 width: BeerViewSize.beerViewWidth.rawValue,
                                                 height: BeerViewSize.beerViewHeight.rawValue)
         viewlWithBeerInformation.isHidden = true
-        viewlWithBeerInformation.backgroundColor = UIColor.systemGray6
+        viewlWithBeerInformation.backgroundColor = UIColor.systemGray5
         viewlWithBeerInformation.addSubview(firstBeerLabel)
         firstBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
                                       y: Offset.allOffsets.rawValue,
@@ -198,8 +198,20 @@ class ViewController: UIViewController {
                                       height: 50)
         
         viewlWithBeerInformation.addSubview(firstBeerCountLabel)
+        firstBeerCountLabel.frame = CGRect(x: firstBeerLabel.frame.origin.x + firstBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
+                                      y: Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
         viewlWithBeerInformation.addSubview(firstBeerMinusCountButton)
+        firstBeerMinusCountButton.frame = CGRect(x: firstBeerCountLabel.frame.origin.x + firstBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
+                                      y: Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
         viewlWithBeerInformation.addSubview(firstBeerPlusCountButton)
+        firstBeerPlusCountButton.frame = CGRect(x: firstBeerMinusCountButton.frame.origin.x + firstBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
+                                      y: Offset.allOffsets.rawValue,
+                                      width: 50,
+                                      height: 50)
         
         view.addSubview(recieptView)
         welcomeMessage.text = ""
