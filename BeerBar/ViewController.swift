@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     var totalPrice: Double = 0
@@ -47,7 +48,7 @@ class ViewController: UIViewController {
     
     private let firstBeerLabel: UILabel = {
         let firstBeerName = UILabel()
-        firstBeerName.textAlignment = .center
+        firstBeerName.textAlignment = .left
         firstBeerName.font = UIFont.systemFont(ofSize: 24)
         firstBeerName.textColor = .systemMint
         return firstBeerName}()
@@ -59,7 +60,7 @@ class ViewController: UIViewController {
         return firstBeerCount}()
     private let firstBeerMinusCountButton: UIButton = {
         let firstBeerMinusCount = UIButton()
-        firstBeerMinusCount.setTitle("-", for: .normal)
+        firstBeerMinusCount.setTitle("–", for: .normal)
         firstBeerMinusCount.setTitleColor(.black, for: .normal)
         return firstBeerMinusCount
     }()
@@ -72,7 +73,7 @@ class ViewController: UIViewController {
     
     private let secondBeerLabel: UILabel = {
         let secondBeerName = UILabel()
-        secondBeerName.textAlignment = .center
+        secondBeerName.textAlignment = .left
         secondBeerName.font = UIFont.systemFont(ofSize: 24)
         secondBeerName.textColor = .systemMint
         return secondBeerName}()
@@ -84,7 +85,7 @@ class ViewController: UIViewController {
         return secondBeerCount}()
     private let secondBeerMinusCountButton: UIButton = {
         let secondBeerMinusCount = UIButton()
-        secondBeerMinusCount.setTitle("-", for: .normal)
+        secondBeerMinusCount.setTitle("–", for: .normal)
         secondBeerMinusCount.setTitleColor(.black, for: .normal)
         return secondBeerMinusCount
     }()
@@ -96,7 +97,7 @@ class ViewController: UIViewController {
     }()
     private let thirdBeerLabel: UILabel = {
         let thirdBeerName = UILabel()
-        thirdBeerName.textAlignment = .center
+        thirdBeerName.textAlignment = .left
         thirdBeerName.font = UIFont.systemFont(ofSize: 24)
         thirdBeerName.textColor = .systemMint
         return thirdBeerName}()
@@ -108,7 +109,7 @@ class ViewController: UIViewController {
         return thirdBeerCount}()
     private let thirdBeerMinusCountButton: UIButton = {
         let thirdBeerMinusCount = UIButton()
-        thirdBeerMinusCount.setTitle("-", for: .normal)
+        thirdBeerMinusCount.setTitle("–", for: .normal)
         thirdBeerMinusCount.setTitleColor(.black, for: .normal)
         return thirdBeerMinusCount
     }()
@@ -179,81 +180,147 @@ class ViewController: UIViewController {
     func configureUI(){
         view.backgroundColor = UIColor.white
         view.addSubview(welcomeMessage)
-        welcomeMessage.frame = CGRect(x: (view.frame.width - WelcomeMessageSize.labelWidth.rawValue) / 2,
-                                      y: 100,
-                                      width: WelcomeMessageSize.labelWidth.rawValue,
-                                      height: WelcomeMessageSize.labelHeight.rawValue)
+        welcomeMessage.snp.makeConstraints {make in
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().offset(Offset.leftAndRightOffset.rawValue)
+            make.top.equalToSuperview().offset(Offset.bigTopOffset.rawValue)
+            make.height.equalTo(WelcomeMessageSize.labelHeight.rawValue)
+            
+        }
         welcomeMessage.text = ""
         view.addSubview(viewlWithBeerInformation)
-        viewlWithBeerInformation.frame = CGRect(x: (view.frame.width - BeerViewSize.beerViewWidth.rawValue) / 2,
-                                                y: welcomeMessage.frame.origin.y + welcomeMessage.frame.height + Offset.allOffsets.rawValue,
-                                                width: BeerViewSize.beerViewWidth.rawValue,
-                                                height: BeerViewSize.beerViewHeight.rawValue)
+        viewlWithBeerInformation.snp.makeConstraints{ make in
+            make.left.equalToSuperview().offset(Offset.leftAndRightOffset.rawValue)
+            make.right.equalToSuperview().inset(Offset.leftAndRightOffset.rawValue)
+            make.top.equalTo(welcomeMessage.snp.bottom).offset(Offset.smallTopOffset.rawValue)
+            make.height.equalTo(BeerViewSize.beerViewHeight.rawValue)
+            }
         viewlWithBeerInformation.isHidden = true
         viewlWithBeerInformation.backgroundColor = UIColor.systemGray5
+        //первое пиво
         viewlWithBeerInformation.addSubview(firstBeerLabel)
-        firstBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
-                                      y: Offset.allOffsets.rawValue,
-                                      width: 150,
-                                      height: 50)
+        firstBeerLabel.snp.makeConstraints{ make in
+            make.top.equalTo(viewlWithBeerInformation.snp.top).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalToSuperview().offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerNameLabelsSize.labelWidth.rawValue)
+            
+        }
         
         viewlWithBeerInformation.addSubview(firstBeerCountLabel)
-        firstBeerCountLabel.frame = CGRect(x: firstBeerLabel.frame.origin.x + firstBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
-                                      y: Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
-        viewlWithBeerInformation.addSubview(firstBeerMinusCountButton)
-        firstBeerMinusCountButton.frame = CGRect(x: firstBeerCountLabel.frame.origin.x + firstBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
-                                      y: Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
+        firstBeerCountLabel.snp.makeConstraints{make in
+            make.centerY.equalTo(firstBeerLabel)
+            make.top.equalTo(viewlWithBeerInformation.snp.top).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalTo(firstBeerLabel.snp.right).offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerCountLabelsSize.labelSize.rawValue)
+        }
+        
         viewlWithBeerInformation.addSubview(firstBeerPlusCountButton)
-        firstBeerPlusCountButton.frame = CGRect(x: firstBeerMinusCountButton.frame.origin.x + firstBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
-                                      y: Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
+        firstBeerPlusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(firstBeerLabel)
+            make.top.equalTo(viewlWithBeerInformation.snp.top).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(viewlWithBeerInformation.snp.right).inset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
         
+        viewlWithBeerInformation.addSubview(firstBeerMinusCountButton)
+        firstBeerMinusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(firstBeerLabel)
+            make.top.equalTo(viewlWithBeerInformation.snp.top).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(firstBeerPlusCountButton.snp.left).offset(-(Offset.leftAndRightOffset.rawValue))
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
+        
+        
+        //второе пиво
         viewlWithBeerInformation.addSubview(secondBeerLabel)
-        secondBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
-                                       y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 150,
-                                      height: 50)
-        viewlWithBeerInformation.addSubview(secondBeerCountLabel)
-        secondBeerCountLabel.frame = CGRect(x: secondBeerLabel.frame.origin.x + secondBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
-                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
-        viewlWithBeerInformation.addSubview(secondBeerMinusCountButton)
-        secondBeerMinusCountButton.frame = CGRect(x: secondBeerCountLabel.frame.origin.x + secondBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
-                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
-        viewlWithBeerInformation.addSubview(secondBeerPlusCountButton)
-        secondBeerPlusCountButton.frame = CGRect(x: secondBeerMinusCountButton.frame.origin.x + secondBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
-                                      y: firstBeerLabel.frame.origin.y + firstBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
+        secondBeerLabel.snp.makeConstraints{ make in
+            make.top.equalTo(firstBeerLabel.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalToSuperview().offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerNameLabelsSize.labelWidth.rawValue)
+        }
         
+        viewlWithBeerInformation.addSubview(secondBeerCountLabel)
+        secondBeerCountLabel.snp.makeConstraints{make in
+            make.centerY.equalTo(secondBeerLabel)
+            make.top.equalTo(firstBeerCountLabel.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalTo(secondBeerLabel.snp.right).offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerCountLabelsSize.labelSize.rawValue)
+        }
+        
+        viewlWithBeerInformation.addSubview(secondBeerPlusCountButton)
+        secondBeerPlusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(secondBeerLabel)
+            make.top.equalTo(firstBeerPlusCountButton.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(viewlWithBeerInformation.snp.right).inset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
+        
+        viewlWithBeerInformation.addSubview(secondBeerMinusCountButton)
+        secondBeerMinusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(secondBeerLabel)
+            make.top.equalTo(firstBeerMinusCountButton.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(secondBeerPlusCountButton.snp.left).offset(-(Offset.leftAndRightOffset.rawValue))
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
+        
+        //третье пиво
         viewlWithBeerInformation.addSubview(thirdBeerLabel)
-        thirdBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
-                                       y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 150,
-                                      height: 50)
+        thirdBeerLabel.snp.makeConstraints{ make in
+            make.top.equalTo(secondBeerLabel.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalToSuperview().offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerNameLabelsSize.labelWidth.rawValue)
+        }
+        
         viewlWithBeerInformation.addSubview(thirdBeerCountLabel)
-        thirdBeerCountLabel.frame = CGRect(x: thirdBeerLabel.frame.origin.x + thirdBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
-                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
-        viewlWithBeerInformation.addSubview(thirdBeerMinusCountButton)
-        thirdBeerMinusCountButton.frame = CGRect(x: thirdBeerCountLabel.frame.origin.x + thirdBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
-                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
+        thirdBeerCountLabel.snp.makeConstraints{make in
+            make.centerY.equalTo(thirdBeerLabel)
+            make.top.equalTo(secondBeerCountLabel.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.left.equalTo(thirdBeerLabel.snp.right).offset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(BeerCountLabelsSize.labelSize.rawValue)
+        }
+        
         viewlWithBeerInformation.addSubview(thirdBeerPlusCountButton)
-        thirdBeerPlusCountButton.frame = CGRect(x: thirdBeerMinusCountButton.frame.origin.x + thirdBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
-                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
-                                      width: 50,
-                                      height: 50)
+        thirdBeerPlusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(thirdBeerLabel)
+            make.top.equalTo(secondBeerPlusCountButton.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(viewlWithBeerInformation.snp.right).inset(Offset.leftAndRightOffset.rawValue)
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
+        
+        viewlWithBeerInformation.addSubview(thirdBeerMinusCountButton)
+        thirdBeerMinusCountButton.snp.makeConstraints{make in
+            make.centerY.equalTo(thirdBeerLabel)
+            make.top.equalTo(secondBeerMinusCountButton.snp.bottom).offset(Offset.mediumTopOffset.rawValue)
+            make.right.equalTo(thirdBeerPlusCountButton.snp.left).offset(-(Offset.leftAndRightOffset.rawValue))
+            make.width.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+            make.height.equalTo(MinusAndPlusButtonSize.buttonSize.rawValue)
+        }
+//
+//        viewlWithBeerInformation.addSubview(thirdBeerLabel)
+//        thirdBeerLabel.frame = CGRect(x: Offset.allOffsets.rawValue,
+//                                       y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+//                                      width: 150,
+//                                      height: 50)
+//        viewlWithBeerInformation.addSubview(thirdBeerCountLabel)
+//        thirdBeerCountLabel.frame = CGRect(x: thirdBeerLabel.frame.origin.x + thirdBeerLabel.frame.width + (Offset.allOffsets.rawValue * 4),
+//                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+//                                      width: 50,
+//                                      height: 50)
+//        viewlWithBeerInformation.addSubview(thirdBeerMinusCountButton)
+//        thirdBeerMinusCountButton.frame = CGRect(x: thirdBeerCountLabel.frame.origin.x + thirdBeerCountLabel.frame.width + Offset.allOffsets.rawValue,
+//                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+//                                      width: 50,
+//                                      height: 50)
+//        viewlWithBeerInformation.addSubview(thirdBeerPlusCountButton)
+//        thirdBeerPlusCountButton.frame = CGRect(x: thirdBeerMinusCountButton.frame.origin.x + thirdBeerMinusCountButton.frame.width + Offset.allOffsets.rawValue,
+//                                      y: secondBeerLabel.frame.origin.y + secondBeerLabel.frame.height + Offset.allOffsets.rawValue,
+//                                      width: 50,
+//                                      height: 50)
         
         
         
@@ -265,24 +332,18 @@ class ViewController: UIViewController {
         firstBeerLabel.text = "\(firstBeer.beerName)"
         firstBeerCountLabel.font = UIFont.systemFont(ofSize: 22)
         firstBeerCountLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        firstBeerMinusCountButton.setTitle("—", for: .disabled)
-        firstBeerPlusCountButton.setTitle("+", for: .disabled)
         firstBeerMinusCountButton.isEnabled = false
         firstBeerPlusCountButton.isEnabled = false
         
         secondBeerLabel.text = "\(secondBeer.beerName)"
         secondBeerCountLabel.font = UIFont.systemFont(ofSize: 22)
         secondBeerCountLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        secondBeerMinusCountButton.setTitle("-", for: .disabled)
-        secondBeerPlusCountButton.setTitle("+", for: .disabled)
         secondBeerMinusCountButton.isEnabled = false
         secondBeerPlusCountButton.isEnabled = false
         
         thirdBeerLabel.text = "\(thirdBeer.beerName)"
         thirdBeerCountLabel.font = UIFont.systemFont(ofSize: 22)
         thirdBeerCountLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        thirdBeerMinusCountButton.setTitle("—", for: .disabled)
-        thirdBeerPlusCountButton.setTitle("+", for: .disabled)
         thirdBeerMinusCountButton.isEnabled = false
         thirdBeerPlusCountButton.isEnabled = false
         
@@ -310,20 +371,20 @@ class ViewController: UIViewController {
         
         view.addSubview(closeButton)
         closeButton.isEnabled = false
-        closeButton.frame = CGRect(x: (view.frame.width - ButtonSize.buttonWidth.rawValue) / 2,
-                                   y: openButton.frame.origin.y + ButtonSize.buttonHeight.rawValue + Offset.allOffsets.rawValue,
-                                   width: ButtonSize.buttonWidth.rawValue,
-                                   height: ButtonSize.buttonHeight.rawValue)
-        let closeDay = UIAction {_ in self.closeWorkday()}
-        closeButton.addAction(closeDay, for: .touchUpInside)
-        view.addSubview(sellButton)
-        sellButton.isEnabled = false
-        sellButton.frame = CGRect(x: (view.frame.width - ButtonSize.buttonWidth.rawValue) / 2,
-                                  y: closeButton.frame.origin.y + ButtonSize.buttonHeight.rawValue + Offset.allOffsets.rawValue,
-                                  width: ButtonSize.buttonWidth.rawValue,
-                                  height: ButtonSize.buttonHeight.rawValue)
-        let sell = UIAction {_ in self.sellBeer()}
-        sellButton.addAction(sell, for: .touchUpInside)
+//        closeButton.frame = CGRect(x: (view.frame.width - ButtonSize.buttonWidth.rawValue) / 2,
+//                                   y: openButton.frame.origin.y + ButtonSize.buttonHeight.rawValue + Offset.allOffsets.rawValue,
+//                                   width: ButtonSize.buttonWidth.rawValue,
+//                                   height: ButtonSize.buttonHeight.rawValue)
+//        let closeDay = UIAction {_ in self.closeWorkday()}
+//        closeButton.addAction(closeDay, for: .touchUpInside)
+//        view.addSubview(sellButton)
+//        sellButton.isEnabled = false
+//        sellButton.frame = CGRect(x: (view.frame.width - ButtonSize.buttonWidth.rawValue) / 2,
+//                                  y: closeButton.frame.origin.y + ButtonSize.buttonHeight.rawValue + Offset.allOffsets.rawValue,
+//                                  width: ButtonSize.buttonWidth.rawValue,
+//                                  height: ButtonSize.buttonHeight.rawValue)
+//        let sell = UIAction {_ in self.sellBeer()}
+//        sellButton.addAction(sell, for: .touchUpInside)
         
         
     }

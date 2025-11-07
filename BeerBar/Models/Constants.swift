@@ -11,6 +11,10 @@ enum ButtonSize: CGFloat{
     case buttonHeight = 50
 }
 
+enum MinusAndPlusButtonSize: CGFloat{
+    case buttonSize = 50
+}
+
 enum WelcomeMessageSize: CGFloat{
     case labelWidth = 250
     case labelHeight = 50
@@ -18,10 +22,21 @@ enum WelcomeMessageSize: CGFloat{
 
 enum BeerViewSize: CGFloat{
     case beerViewWidth = 380
-    case beerViewHeight = 450
+    case beerViewHeight = 250
+}
+
+enum BeerNameLabelsSize: CGFloat{
+    case labelWidth = 150
+    case labelHeight = 50
+}
+enum BeerCountLabelsSize: CGFloat{
+    case labelSize = 50
 }
 
 enum Offset: CGFloat{
-    case allOffsets = 10
+    case smallTopOffset = 8
+    case mediumTopOffset = 24
+    case bigTopOffset = 64
+    case leftAndRightOffset = 16
 
 }
