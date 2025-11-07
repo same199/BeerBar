@@ -29,14 +29,17 @@ enum BeerNameLabelsSize: CGFloat{
     case labelWidth = 150
     case labelHeight = 50
 }
+
 enum BeerCountLabelsSize: CGFloat{
     case labelSize = 50
 }
 
 enum Offset: CGFloat{
-    case smallTopOffset = 8
-    case mediumTopOffset = 24
-    case bigTopOffset = 64
+    case smallTopAndBottomOffset = 8
+    case mediumTopAndBottomOffset = 24
+    case bigTopAndBottomOffset = 64
     case leftAndRightOffset = 16
-
+}
+enum CornerRadius: CGFloat{
+    case radius = 10
 }
