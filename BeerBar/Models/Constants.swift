@@ -25,6 +25,10 @@ enum BeerViewSize: CGFloat{
     case beerViewHeight = 250
 }
 
+enum BeerViewRecieptSize: CGFloat{
+    case beerViewHeight = 200
+}
+
 enum BeerNameLabelsSize: CGFloat{
     case labelWidth = 150
     case labelHeight = 50
@@ -40,6 +44,15 @@ enum Offset: CGFloat{
     case bigTopAndBottomOffset = 64
     case leftAndRightOffset = 16
 }
+
+enum FinalTextLabelSize: CGFloat{
+    case size = 200
+}
 enum CornerRadius: CGFloat{
     case radius = 10
+}
+
+enum ButtonParameters: CGFloat{
+    case buttonBorderLine = 1
+    case buttonCornerRadius = 10
 }
